@@ -2858,7 +2858,7 @@ footer {
           <br><br>
           Essa condição existe enquanto a programa está ativo. Quando encerrar, encerra.
         </div>
-        <a href="#cta-final" class="ub-cta">Garantir essa condição &rarr;</a>
+        <a href="#" class="ub-cta" onclick="enviarLeadWhatsApp('garantir'); return false;">Garantir essa condição &rarr;</a>
       </div>
       <div class="urg-bloco">
         <div class="ub-label">// O custo de não decidir</div>
@@ -2974,7 +2974,7 @@ footer {
       </div>
 
       <div class="cta-botoes">
-        <a href="https://wa.me/5511999999999?text=Quero+saber+mais+sobre+o+AI+Business+Architecture" class="cta-btn">
+        <a href="#" class="cta-btn" onclick="enviarLeadWhatsApp('admissao'); return false;">
           Solicitar admissão &rarr;
         </a>
         <div class="cta-micro">
@@ -3060,6 +3060,35 @@ footer {
       observer.observe(filho);
     });
   });
+</script>
+
+
+<script>
+/* ── EVOLUTION API — WhatsApp Integration ────────────── */
+function enviarLeadWhatsApp(tipoAcao) {
+  var phone = '5521990303151';
+  var notif = tipoAcao === 'garantir'
+    ? '🔔 NOVO LEAD — *Garantir Condição*: Um visitante clicou em "Garantir essa condição" na LP de Pós-Graduação (ementa.siberiainstitute.com).'
+    : '🔔 NOVO LEAD — *Solicitar Admissão*: Um visitante clicou em "Solicitar admissão" na LP de Pós-Graduação (ementa.siberiainstitute.com).';
+
+  fetch('https://evolution-api-service-743054193062.southamerica-east1.run.app/message/sendText/Siberia', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': 'e45913a0-b510-47bf-9c0b-4317a903db6d'
+    },
+    body: JSON.stringify({
+      number: phone,
+      textMessage: { text: notif }
+    })
+  }).catch(function(){});
+
+  var msg = tipoAcao === 'garantir'
+    ? 'Olá! Quero garantir a condição especial do programa AI Business Architecture da Siberia Institute.'
+    : 'Olá! Quero solicitar minha admissão no programa AI Business Architecture da Siberia Institute.';
+
+  window.open('https://wa.me/' + phone + '?text=' + encodeURIComponent(msg), '_blank');
+}
 </script>
 
 </body>
